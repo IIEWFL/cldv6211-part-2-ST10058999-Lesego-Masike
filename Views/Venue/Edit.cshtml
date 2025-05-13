@@ -1,0 +1,35 @@
+﻿@model EventEaseProject.Models.Venue
+
+@{
+    ViewData["Title"] = "Edit Venue";
+}
+
+<h1>Edit Venue</h1>
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="VenueId" />
+    <div class="form-group">
+        <label asp-for="VenueName" class="control-label"></label>
+        <input asp-for="VenueName" class="form-control" />
+        <span asp-validation-for="VenueName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="VenueLocation" class="control-label"></label>
+        <input asp-for="VenueLocation" class="form-control" />
+        <span asp-validation-for="VenueLocation" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="VenueCapacity" class="control-label"></label>
+        <input asp-for="VenueCapacity" class="form-control" type="number" />
+        <span asp-validation-for="VenueCapacity" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

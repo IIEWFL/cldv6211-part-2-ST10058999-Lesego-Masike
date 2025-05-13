@@ -1,0 +1,62 @@
+﻿@model List<EventEaseProject.Models.Venue>
+
+@{
+    ViewData["Title"] = "Venues";
+}
+
+<h1>Venues</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New Venue</a>
+</p>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Venue Name</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var venue in Model)
+            {
+                <tr>
+                    <td>@venue.VenueName</td>
+                    <td>@venue.VenueLocation</td>
+                    <td>@venue.VenueCapacity</td>
+                    <td>
+                        <img src="@venue.ImageUrl" alt="@venue.VenueName" style="max-width: 100px;" />
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@venue.VenueId" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@venue.VenueId" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@venue.VenueId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">No venues found.</p>
+}

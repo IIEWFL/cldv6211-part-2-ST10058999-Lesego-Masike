@@ -1,0 +1,80 @@
+﻿@model List<EventEaseProject.Models.BookingView>
+
+@{
+    ViewData["Title"] = "Bookings";
+}
+
+<h1>Bookings</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SearchMessage"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["SearchMessage"]
+    </div>
+}
+
+<form asp-action="Index" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search bookings..." value="@ViewBag.SearchTerm" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New Booking</a>
+</p>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Venue Name</th>
+                <th>Venue Location</th>
+                <th>Venue Capacity</th>
+                <th>Event Description</th>
+                <th>Event Date</th>
+                <th>Booking Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.BookingID</td>
+                    <td>@booking.VenueName</td>
+                    <td>@booking.VenueLocation</td>
+                    <td>@booking.VenueCapacity</td>
+                    <td>@booking.EventDescription</td>
+                    <td>@booking.EventDate.ToString("yyyy-MM-dd")</td>
+                    <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@booking.BookingID" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@booking.BookingID" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@booking.BookingID" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">No bookings found.</p>
+}

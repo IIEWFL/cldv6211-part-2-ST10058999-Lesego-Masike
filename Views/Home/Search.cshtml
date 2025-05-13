@@ -1,0 +1,60 @@
+﻿@model List<EventEaseProject.Models.BookingView>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h1>Search Results</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form asp-action="Search" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search bookings..." value="@ViewBag.SearchTerm" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Venue Name</th>
+                <th>Venue Location</th>
+                <th>Venue Capacity</th>
+                <th>Event Description</th>
+                <th>Event Date</th>
+                <th>Booking Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.BookingID</td>
+                    <td>@booking.VenueName</td>
+                    <td>@booking.VenueLocation</td>
+                    <td>@booking.VenueCapacity</td>
+                    <td>@booking.EventDescription</td>
+                    <td>@booking.EventDate.ToString("yyyy-MM-dd")</td>
+                    <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">No bookings found.</p>
+}
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back to Home</a>
+</p>
